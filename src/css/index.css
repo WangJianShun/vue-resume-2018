@@ -1,0 +1,65 @@
+*,*::before,*::after{margin:0;padding:0;box-sizing: border-box;list-style:none;}
+a{text-decoration: none;color:inhert;}
+@media(min-width:500px){
+  .page{
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  }
+ .page>aside{
+  width: 100px;
+  flex-shrink:0;
+  border-right:1px solid #ddd ;
+  box-shadow: 0px 3px 13px -4px rgba(0,0,0,0.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+ }
+ .page >aside>.upper{
+   display:flex;
+   flex-direction: column;
+ }
+ .page >aside .actions >li{
+   margin:20px;
+ }
+ .page > main{
+   flex:1;
+ }
+ .button{
+   padding:10px;
+ }
+ main{overflow:auto;}
+ .resume{
+   max-width:800px;
+   margin:0 auto;
+ }
+ .resume >section{margin:50px 0;}
+ .resume > section .profile{text-align: center;}
+ .resume > section >h1{text-align: center;margin:20px;}
+ .resume > section >h2{text-align: center;margin:20px;}
+ .resume .skills > ul{
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+ }
+.resume .skills > ul>li{
+   width:48%;
+   border:1px solid #ddd;
+   padding:10px;
+   margin:5px 0;
+}
+.resume .projects {
+
+}
+.resume .projects .name{
+  margin-right:1em;
+}
+.resume .projects  li{
+  margin:30px 0;
+  border:1px solid #ddd;
+  padding:10px;
+}
+.resume .projects  header{display: flex;align-items: center;justify-content:space-between;}
+.resume .projects .start{display: flex;}
+}
