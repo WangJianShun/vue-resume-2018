@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./css/resume.css">
+  <link rel="stylesheet" href="./css/editable.sapn.css">
+  <link rel="stylesheet" href="./css/login.css">
   <title>简历编辑器</title>
 </head>
 
@@ -14,7 +16,7 @@
     <aside>
       <div class="upper">
         <ul class="actions">
-          <li><button class='button'>保存</button></li>
+          <li><button class='button' @click='onClickSave'>保存</button></li>
           <li><button class='button'>分享</button></li>
           <li><button class='button'>打印</button></li>
           <li><button class='button'>换肤</button></li>
@@ -168,68 +170,21 @@
       </div>
 
     </main>
+    <div class="login">登录</div>
   </div>
 
   <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
   <script src='./vendors/av.js'></script>
   <script src="./vendors/vue.js"></script>
+  
+  <script src="./js/editable-span.js"></script>
+  <script src='./js/app.js'></script>
   <style>
-    .editableSpan {
-      position: relative
-    }
-
-    .editableSpan button {
-      display: none;
-      position: absolute;
-      left: 100%;
-      top: 0;
-      z-index:1;
-    }
-
-    .editableSpan:hover button {
-      display: inline-block;
-    }
+   
   </style>
   <script>
-    Vue.component('edit-span', {
-      props: ['value'],
-      template: `
-          <span class="editableSpan">
-            <span v-show="!editing">{{value}}</span>
-            <input v-show="editing" type="text" v-bind:value='value' @input='triggerEdit'>
-            <button @click='editing=!editing'>edit</button>
-          </span>
-            `,
-      data() {
-        return {
-          editing: false,
-        }
-      },
-      methods: {
-        triggerEdit(e) {
-          this.$emit('edit', e.target.value)
-        }
-      }
-    })
-    var app = new Vue({
-      el: '#app',
-      data: {
-        editingName: false,
-        resume: {
-          name: '名字',
-          gender: '男',
-          birthday: '1997年1月28日',
-          jobTitle: '前端工程师',
-          email: '1779011185@qq.com',
-          phone: '12345679'
-        }
-      },
-      methods: {
-        onEdit(key, value) {
-          this.resume[key] = value
-        }
-      }
-    })
+    
+    
   </script>
 </body>
 
