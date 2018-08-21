@@ -1,5 +1,6 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing: border-box;list-style:none;}
 a{text-decoration: none;color:inherit;}
+div[v-cloak]{display:none}
 @media(min-width:500px){
   .page{
   height:100vh;
