@@ -1,5 +1,5 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing: border-box;list-style:none;}
-a{text-decoration: none;color:inhert;}
+a{text-decoration: none;color:inherit;}
 @media(min-width:500px){
   .page{
   height:100vh;

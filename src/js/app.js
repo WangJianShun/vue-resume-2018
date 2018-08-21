@@ -2,6 +2,8 @@ var app = new Vue({
   el: '#app',
   data: {
     editingName: false,
+    loginVisible:false,
+    signUpVisible:false,
     resume: {
       name: '名字',
       gender: '男',
@@ -22,9 +24,14 @@ var app = new Vue({
         this.saveResume()
       }
       else {
-        this.showLogin()
+        this.loginVisible=true;
         //currentUser 为空时，可打开用户注册界面…
       }
+    },
+    showLogin(){
+      this.loginVisible=true;
+    },
+    
       /** 声明类型
       var User = AV.Object.extend('User');
       // 新建对象
@@ -38,6 +45,6 @@ var app = new Vue({
       }, function (error) {
         console.error(error);
     });**/
-    }
+    
   }
 })

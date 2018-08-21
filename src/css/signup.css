@@ -1,16 +1,16 @@
-.login{
+.signUp{
   position:fixed;
   top:50%;
   left:50% ;
   width:400px;
   height:500px;
-  background: #ddd;
+  background: transparent;
   transform: translate(-50%,-50%);
   display:flex;
   justify-content: center;
   align-items: center;
 }
-.login .form{
+.signUp .form{
   background: red;
   min-width:100%;
 }

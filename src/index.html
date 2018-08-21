@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="./css/resume.css">
   <link rel="stylesheet" href="./css/editable.sapn.css">
   <link rel="stylesheet" href="./css/login.css">
+  <link rel="stylesheet" href="./css/signup.css">
+
   <title>简历编辑器</title>
 </head>
 
@@ -38,11 +40,11 @@
             <edit-span v-bind:value='resume.jobTitle' v-on:edit='onEdit("jobTitle",$event)'></edit-span>
           </p>
           <p>
-              <edit-span v-bind:value='resume.birthday' v-on:edit='onEdit("birthday",$event)'></edit-span>|
-              <edit-span v-bind:value='resume.gender' v-on:edit='onEdit("gender",$event)'></edit-span>|
-              <edit-span v-bind:value='resume.email' v-on:edit='onEdit("email",$event)'></edit-span>|
-              <edit-span v-bind:value='resume.phone' v-on:edit='onEdit("phone",$event)'></edit-span>
-            
+            <edit-span v-bind:value='resume.birthday' v-on:edit='onEdit("birthday",$event)'></edit-span>|
+            <edit-span v-bind:value='resume.gender' v-on:edit='onEdit("gender",$event)'></edit-span>|
+            <edit-span v-bind:value='resume.email' v-on:edit='onEdit("email",$event)'></edit-span>|
+            <edit-span v-bind:value='resume.phone' v-on:edit='onEdit("phone",$event)'></edit-span>
+
           </p>
         </section>
         <section class="skills">
@@ -170,21 +172,58 @@
       </div>
 
     </main>
-    <div class="login">登录</div>
+    <div class="login" v-show='loginVisible'>
+      <form class="form">
+        <h2>登录</h2>
+        <button @click='loginVisible=false'>关闭</button>
+        <div class="row">
+          <label for="">邮箱</label>
+          <input type="text">
+        </div>
+        <div class="row">
+          <label for="">密码</label>
+          <input type="text">
+        </div>
+        <div class="row">
+          <button>提交</button>
+          <a href="#" @click='signUpVisible=true;loginVisible=false'>注册</a>
+        </div>
+      </form>
+    </div>
+
+
+    <div class="signUp" v-show='signUpVisible'>
+      <form class="form">
+        <h2>注册</h2>
+        <button @click='loginVisible=false'>关闭</button>
+        <div class="row">
+          <label for="">邮箱</label>
+          <input type="text">
+        </div>
+        <div class="row">
+          <label for="">密码</label>
+          <input type="text">
+        </div>
+
+        <div class="row">
+          <button>提交</button>
+          <a href="#" @click='loginVisible=true;signUpVisible=false'>登录</a>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
   <script src='./vendors/av.js'></script>
   <script src="./vendors/vue.js"></script>
-  
+
   <script src="./js/editable-span.js"></script>
   <script src='./js/app.js'></script>
   <style>
-   
   </style>
   <script>
-    
-    
+
+
   </script>
 </body>
 
