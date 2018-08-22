@@ -4,6 +4,7 @@ var app = new Vue({
     editingName: false,
     loginVisible: false,
     signUpVisible: false,
+    currentUser: { id: '', email: '', },
     resume: {
       name: '名字',
       gender: '男',
@@ -57,13 +58,13 @@ var app = new Vue({
     },
 
     onLogin() {
-      AV.User.logIn(this.login.email, this.login.password).then(function (loggedInUser) {
-        console.log(1)
-        console.log(loggedInUser);
+      AV.User.logIn(this.login.email, this.login.password).then((user) => {
+        this.currentUser.id = user.id,
+          this.currentUser.email = user.email
       }, function (error) {
         if (error.code === 211) {
           alert('邮箱不存在')
-        } else if (error.code === 211) {
+        } else if (error.code === 210) {
           alert('用户名和密码不匹配')
         }
       });
@@ -99,3 +100,7 @@ var app = new Vue({
 
   }
 })
+let currentUser = AV.User.current()
+if (currentUser) {
+  app.currentUser = currentUser
+}

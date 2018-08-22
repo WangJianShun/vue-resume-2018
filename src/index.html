@@ -21,11 +21,11 @@
           <li><button class='button' @click='onClickSave'>保存</button></li>
           <li><button class='button'>分享</button></li>
           <li><button class='button'>打印</button></li>
-          <li><button class='button'>换肤</button></li>
+        <li><button class='button'>换肤</button></li>
         </ul>
       </div>
       <div class="down">
-        <button @click='onLogout'>登出</button>
+        <button @click='onLogout' v-show='!!currentUser.id'>登出</button>
       </div>
     </aside>
     <main>
@@ -74,7 +74,8 @@
             <li>
               <header>
                 <div class="start">
-                  <h3 class="name">我的简历</h3>
+        {{currentUser}}
+        <h3 class="name">我的简历</h3>
                   <span class="link">http://www.xxxx</span>
                 </div>
                 <div class="end">
@@ -175,7 +176,7 @@
     <div class="login" v-show='loginVisible' v-cloak>
       <form class="form" @submit.prevent='onLogin'>
         <h2>登录</h2>
-        <button @click='loginVisible=false'>关闭</button>
+        <button type='button' @click='loginVisible=false'>关闭</button>
         <div class="row">
           <label>邮箱</label>
           <input type="text" v-model="login.email">
