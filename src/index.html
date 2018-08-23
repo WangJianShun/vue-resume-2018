@@ -25,7 +25,7 @@
         </ul>
       </div>
       <div class="down">
-        <button @click='onLogout' v-show='!!currentUser.id'>登出</button>
+        <button @click='onLogout' v-show='hasLogin()'>登出</button>
       </div>
     </aside>
     <main>

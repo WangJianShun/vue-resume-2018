@@ -31,7 +31,7 @@ var app = new Vue({
       if (currentUser) {
         // 跳转到首页
         this.saveResume()
-        console.log(currentUser)
+
 
       }
       else {
@@ -51,16 +51,25 @@ var app = new Vue({
       user.setPassword(this.signUp.password);
       // 设置邮箱
       user.setEmail(this.signUp.email);
-      user.signUp().then(function (user) {
-        console.log(user);
-      }, function (error) {
+      user.signUp().then((user) => {
+        alert('注册成功');
+        user = user.toJSON()
+        this.currentUser.objectId = user.objectId
+        this.currentUser.email = user.email
+        this.signUpVisible = false
+
+      }, (error) => {
+        alert('此邮箱已经被占用')
       });
     },
 
     onLogin() {
       AV.User.logIn(this.login.email, this.login.password).then((user) => {
-        this.currentUser.id = user.id,
-          this.currentUser.email = user.email
+        user = user.toJSON()
+        console.log(user)
+        this.currentUser.objectId = user.objectId
+        this.currentUser.email = user.email
+        this.loginVisible = false
       }, function (error) {
         if (error.code === 211) {
           alert('邮箱不存在')
@@ -69,10 +78,12 @@ var app = new Vue({
         }
       });
     },
-
+    hasLogin() {
+      return !!this.currentUser.objectId
+    },
     saveResume() {
-      let { id } = AV.User.current()
-      var user = AV.Object.createWithoutData('User', id);
+      let { objectId } = AV.User.current().toJSON()
+      let user = AV.Object.createWithoutData('User', objectId);
       // 修改属性
       user.set('resume', this.resume);
       // 保存到云端
@@ -83,6 +94,15 @@ var app = new Vue({
       alert('注销成功')
       // 现在的 currentUser 是 null 了
       var currentUser = AV.User.current();
+    },
+    getResume() {
+      var query = new AV.Query('User');
+      query.get(this.currentUser.objectId).then((user) =>{
+        let resume=user.toJSON().resume
+        this.resume=resume
+      }, function (error) {
+        // 异常处理
+      });
     }
     /** 声明类型
     var User = AV.Object.extend('User');
@@ -102,5 +122,6 @@ var app = new Vue({
 })
 let currentUser = AV.User.current()
 if (currentUser) {
-  app.currentUser = currentUser
+  app.currentUser = currentUser.toJSON()
+  app.getResume()
 }
