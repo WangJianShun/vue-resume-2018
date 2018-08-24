@@ -4,8 +4,8 @@ var app = new Vue({
     editingName: false,
     loginVisible: false,
     signUpVisible: false,
-    shareVisible:false,
-    currentUser: { id: '', email: '', },
+    shareVisible: false,
+    currentUser: { objectId: '', email: '', },
     resume: {
       name: '名字',
       gender: '男',
@@ -24,6 +24,9 @@ var app = new Vue({
         { name: '请填写项目名称', link: 'http://....', keywords: '请填写关键词', description: '请填写详细项目描述', },
         { name: '请填写项目名称', link: 'http://....', keywords: '请填写关键词', description: '请填写详细项目描述', },
       ],
+      previewUser: {
+        objectId: undefined,
+      },
     },
 
     signUp: {
@@ -34,7 +37,14 @@ var app = new Vue({
       email: '',
       password: '',
     },
-    shareLink:'不知道'
+    shareLink: '不知道'
+  },
+  watch: {
+    'currentUser.objectId': function (newValue, oldValue) {
+      if (newValue) {
+        this.getResume(this.currentUser)
+      }
+    }
   },
   methods: {
     onEdit(key, value) {
@@ -123,10 +133,10 @@ var app = new Vue({
       // 现在的 currentUser 是 null 了
       var currentUser = AV.User.current();
     },
-    getResume() {
+    getResume(user) {
       var query = new AV.Query('User');
 
-      query.get(this.currentUser.objectId).then((user) => {
+      query.get(user.objectId).then((user) => {
         let resume = user.toJSON().resume
         Object.assign(this.resume, resume)
       }, function (error) {
@@ -162,9 +172,18 @@ var app = new Vue({
 
   }
 })
-let currentUser = AV.User.current()
-if (currentUser) {
-  app.currentUser = currentUser.toJSON()
-  app.shareLink=location.origin+location.pathname+'?user_id='+app.currentUser.objectId
-  app.getResume()
+let search = location.search
+let regex = /user_id=([^&]+)/
+matches = search.match(regex)
+if (matches) {
+  let userId = matches[1]
+  console.log(userId)
+} else {
+  let currentUser = AV.User.current()
+  if (currentUser) {
+    app.currentUser = currentUser.toJSON()
+    app.shareLink = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
+    app.getResume(app.currentUser)
+  }
 }
+
