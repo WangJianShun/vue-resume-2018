@@ -4,6 +4,7 @@ var app = new Vue({
     editingName: false,
     loginVisible: false,
     signUpVisible: false,
+    shareVisible:false,
     currentUser: { id: '', email: '', },
     resume: {
       name: '名字',
@@ -12,13 +13,19 @@ var app = new Vue({
       jobTitle: '前端工程师',
       email: '1779011185@qq.com',
       phone: '12345679',
+
       skills: [
         { name: '请填写技能名称', description: '请填写技能描述', },
         { name: '请填写技能名称', description: '请填写技能描述', },
         { name: '请填写技能名称', description: '请填写技能描述', },
         { name: '请填写技能名称', description: '请填写技能描述', },
-      ]
+      ],
+      projects: [
+        { name: '请填写项目名称', link: 'http://....', keywords: '请填写关键词', description: '请填写详细项目描述', },
+        { name: '请填写项目名称', link: 'http://....', keywords: '请填写关键词', description: '请填写详细项目描述', },
+      ],
     },
+
     signUp: {
       email: '',
       password: '',
@@ -26,19 +33,20 @@ var app = new Vue({
     login: {
       email: '',
       password: '',
-    }
+    },
+    shareLink:'不知道'
   },
   methods: {
     onEdit(key, value) {
       let regex = /\[(\d+)\]/g
       key = key.replace(regex, (match, number) => `.${number}`)
       keys = key.split('.')
-      let result=this.resume
+      let result = this.resume
       for (let i = 0; i < keys.length; i++) {
-        if (i === keys.length - 1){
-          result[keys[i]]=value
-        }else{
-            result = result[keys[i]]
+        if (i === keys.length - 1) {
+          result[keys[i]] = value
+        } else {
+          result = result[keys[i]]
         }
         //result =this.result
         //keys=:['skills','0','name']
@@ -53,8 +61,6 @@ var app = new Vue({
       if (currentUser) {
         // 跳转到首页
         this.saveResume()
-
-
       }
       else {
         this.loginVisible = true;
@@ -88,7 +94,7 @@ var app = new Vue({
     onLogin() {
       AV.User.logIn(this.login.email, this.login.password).then((user) => {
         user = user.toJSON()
-        console.log(user)
+
         this.currentUser.objectId = user.objectId
         this.currentUser.email = user.email
         this.loginVisible = false
@@ -110,7 +116,6 @@ var app = new Vue({
       user.set('resume', this.resume);
       // 保存到云端
       user.save();
-      alert('保存成功')
     },
     onLogout() {
       AV.User.logOut();
@@ -120,21 +125,26 @@ var app = new Vue({
     },
     getResume() {
       var query = new AV.Query('User');
-      
 
       query.get(this.currentUser.objectId).then((user) => {
         let resume = user.toJSON().resume
-        this.resume=resume
+        Object.assign(this.resume, resume)
       }, function (error) {
         // 异常处理
         console.log("出现异常")
       });
     },
-    addSkills(){
-      this.resume.skills.push({name:'请填写技能名称',description:'请填写技能描述'})
+    addSkills() {
+      this.resume.skills.push({ name: '请填写技能名称', description: '请填写技能描述' })
     },
-    removeSkills(index){
-      this.resume.skills.splice(index,1)
+    addProject() {
+      this.resume.projects.push({ name: '请填写项目名称', link: 'http://....', keywords: '请填写关键词', description: '请填写详细项目描述', })
+    },
+    removeSkills(index) {
+      this.resume.skills.splice(index, 1)
+    },
+    removeProject(index) {
+      this.resume.projects.splice(index, 1)
     }
     /** 声明类型
     var User = AV.Object.extend('User');
@@ -155,5 +165,6 @@ var app = new Vue({
 let currentUser = AV.User.current()
 if (currentUser) {
   app.currentUser = currentUser.toJSON()
+  app.shareLink=location.origin+location.pathname+'?user_id='+app.currentUser.objectId
   app.getResume()
 }
