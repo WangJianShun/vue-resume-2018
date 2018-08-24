@@ -82,8 +82,14 @@ div[v-cloak]{display:none}
    border:1px solid #ddd;
    padding:10px;
    margin:5px 0;
+   position:relative;
 }
 
+.resume .skills > ul>li .remove{
+  position:absolute;
+  top:0;
+  right:0;
+}
 .resume .projects .name{
   margin-right:1em;
 }

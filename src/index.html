@@ -21,7 +21,7 @@
           <li><button class='button' @click='onClickSave'>保存</button></li>
           <li><button class='button'>分享</button></li>
           <li><button class='button'>打印</button></li>
-        <li><button class='button'>换肤</button></li>
+          <li><button class='button'>换肤</button></li>
         </ul>
       </div>
       <div class="down">
@@ -50,21 +50,15 @@
         <section class="skills">
           <h2>技能</h2>
           <ul>
-            <li>
-              <span class="name">静态网页制作</span>
-              <div class="description">完美实现设计稿</div>
+            <li v-for='skill,index in resume.skills'>
+              <edit-span class="name" :value="skill.name" @edit="onEdit(`skills[${index}].name`,$event)"></edit-span>
+              <div class="description">
+                <edit-span :value="skill.description" @edit="onEdit(`skills[${index}].description`,$event)"></edit-span>
+              </div>
+              <span class="remove" v-if="index>=4" @click="removeSkills(index)">X</span>
             </li>
             <li>
-              <span class="name">静态网页制作</span>
-              <div class="description">完美实现设计稿</div>
-            </li>
-            <li>
-              <span class="name">静态网页制作</span>
-              <div class="description">完美实现设计稿</div>
-            </li>
-            <li>
-              <span class="name">静态网页制作</span>
-              <div class="description">完美实现设计稿</div>
+              <span @click="addSkills">添加</span>
             </li>
           </ul>
         </section>
@@ -74,8 +68,8 @@
             <li>
               <header>
                 <div class="start">
-        {{currentUser}}
-        <h3 class="name">我的简历</h3>
+                  {{resume}}
+                  <h3 class="name">我的简历</h3>
                   <span class="link">http://www.xxxx</span>
                 </div>
                 <div class="end">
@@ -220,7 +214,7 @@
 
   <script src="./js/editable-span.js"></script>
   <script src='./js/app.js'></script>
- 
+
   <script>
 
 

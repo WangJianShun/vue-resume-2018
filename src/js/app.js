@@ -11,7 +11,13 @@ var app = new Vue({
       birthday: '1997年1月28日',
       jobTitle: '前端工程师',
       email: '1779011185@qq.com',
-      phone: '12345679'
+      phone: '12345679',
+      skills: [
+        { name: '请填写技能名称', description: '请填写技能描述', },
+        { name: '请填写技能名称', description: '请填写技能描述', },
+        { name: '请填写技能名称', description: '请填写技能描述', },
+        { name: '请填写技能名称', description: '请填写技能描述', },
+      ]
     },
     signUp: {
       email: '',
@@ -24,7 +30,23 @@ var app = new Vue({
   },
   methods: {
     onEdit(key, value) {
-      this.resume[key] = value
+      let regex = /\[(\d+)\]/g
+      key = key.replace(regex, (match, number) => `.${number}`)
+      keys = key.split('.')
+      let result=this.resume
+      for (let i = 0; i < keys.length; i++) {
+        if (i === keys.length - 1){
+          result[keys[i]]=value
+        }else{
+            result = result[keys[i]]
+        }
+        //result =this.result
+        //keys=:['skills','0','name']
+        //i=0 result ===result['skills']=this.resume.skills
+        //i=2 result === result['0']=this.resume.skills.0
+        // i= 3 result===result['name']=this.resume.skills.0.name
+        //result ===this.resume['skills']['0']['name']
+      }
     },
     onClickSave() {
       var currentUser = AV.User.current();
@@ -88,6 +110,7 @@ var app = new Vue({
       user.set('resume', this.resume);
       // 保存到云端
       user.save();
+      alert('保存成功')
     },
     onLogout() {
       AV.User.logOut();
@@ -97,12 +120,21 @@ var app = new Vue({
     },
     getResume() {
       var query = new AV.Query('User');
-      query.get(this.currentUser.objectId).then((user) =>{
-        let resume=user.toJSON().resume
+      
+
+      query.get(this.currentUser.objectId).then((user) => {
+        let resume = user.toJSON().resume
         this.resume=resume
       }, function (error) {
         // 异常处理
+        console.log("出现异常")
       });
+    },
+    addSkills(){
+      this.resume.skills.push({name:'请填写技能名称',description:'请填写技能描述'})
+    },
+    removeSkills(index){
+      this.resume.skills.splice(index,1)
     }
     /** 声明类型
     var User = AV.Object.extend('User');
