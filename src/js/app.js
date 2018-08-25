@@ -6,6 +6,9 @@ var app = new Vue({
     signUpVisible: false,
     shareVisible: false,
     currentUser: { objectId: '', email: '', },
+    previewResume: {
+
+    },
     resume: {
       name: '名字',
       gender: '男',
@@ -37,13 +40,21 @@ var app = new Vue({
       email: '',
       password: '',
     },
-    shareLink: '不知道'
+    shareLink: '不知道',
+    mode: 'edit' //'preview'
   },
   watch: {
     'currentUser.objectId': function (newValue, oldValue) {
       if (newValue) {
-        this.getResume(this.currentUser)
+        this.getResume(this.currentUser).then((resume)=>{
+          this.resume=resume
+        })
       }
+    }
+  },
+  computed: {
+    displayResume() {
+      return this.mode === 'preview' ? this.previewResume : this.resume
     }
   },
   methods: {
@@ -136,9 +147,9 @@ var app = new Vue({
     getResume(user) {
       var query = new AV.Query('User');
 
-      query.get(user.objectId).then((user) => {
+      return query.get(user.objectId).then((user) => {
         let resume = user.toJSON().resume
-        Object.assign(this.resume, resume)
+        return resume
       }, function (error) {
         // 异常处理
         console.log("出现异常")
@@ -172,18 +183,25 @@ var app = new Vue({
 
   }
 })
+
+let currentUser = AV.User.current()
+if (currentUser) {
+  app.currentUser = currentUser.toJSON()
+  app.shareLink = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
+  app.getResume(app.currentUser).then((resume) => {
+    app.resume = resume
+  })
+}
+
 let search = location.search
 let regex = /user_id=([^&]+)/
 matches = search.match(regex)
+let userId
 if (matches) {
-  let userId = matches[1]
-  console.log(userId)
-} else {
-  let currentUser = AV.User.current()
-  if (currentUser) {
-    app.currentUser = currentUser.toJSON()
-    app.shareLink = location.origin + location.pathname + '?user_id=' + app.currentUser.objectId
-    app.getResume(app.currentUser)
-  }
-}
+  userId = matches[1]
 
+  app.mode = 'preview'
+  app.getResume({ objectId: userId }).then((resume) => {
+    app.previewResume = resume
+  })
+}

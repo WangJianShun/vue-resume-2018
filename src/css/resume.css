@@ -109,3 +109,8 @@ div[v-cloak]{display:none}
 .resume .projects  header{display: flex;align-items: center;justify-content:space-between;}
 .resume .projects .start{display: flex;}
 }
+.exitPreview{
+  position: fixed;
+  top:20px;
+  left:20px;
+}
