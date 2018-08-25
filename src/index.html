@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="./css/login.css">
   <link rel="stylesheet" href="./css/signup.css">
   <link rel="stylesheet" href="./css/share.css">
-
+  <link rel="stylesheet" href="./css/print.css" media="print">
   <title>简历编辑器</title>
 </head>
 
@@ -21,7 +21,7 @@
         <ul class="actions">
           <li><button class='button' @click='onClickSave'>保存</button></li>
           <li><button class='button' @click="shareVisible=true">分享</button></li>
-          <li><button class='button'>打印</button></li>
+          <li><button class='button' @click='print'>打印</button></li>
           <li><button class='button'>换肤</button></li>
         </ul>
       </div>
@@ -56,9 +56,9 @@
               <div class="description">
                 <edit-span :disabled='mode==="preview"' :value="skill.description" @edit="onEdit(`skills[${index}].description`,$event)"></edit-span>
               </div>
-              <span v-if='mode==="edit"' class="remove" v-if="index>=4" @click="removeSkills(index)">x</span>
+              <span v-if='mode==="edit"' class="remove" v-show="index>=4" @click="removeSkills(index)">x</span>
             </li>
-            <li v-if='mode==="edit"'>
+            <li v-if='mode==="edit"' class='add'>
               <span @click="addSkills">添加</span>
             </li>
           </ul>
@@ -86,9 +86,9 @@
               <p class="description">
                 <edit-span :disabled='mode==="preview"' :value="project.description" @edit="onEdit(`projects[${index}].description`,$event)"></edit-span>
               </p>
-              <span v-if='mode==="edit"' class="remove" v-if="index>=2" @click="removeProject">x</span>
+              <span v-if='mode==="edit"' class="remove" v-show="index>=2" @click="removeProject">x</span>
             </li>
-            <li v-if='mode==="edit"'>
+            <li v-if='mode==="edit"' class="add">
               <span @click="addProject">添加</span>
             </li>
           </ol>

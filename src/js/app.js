@@ -166,6 +166,9 @@ var app = new Vue({
     },
     removeProject(index) {
       this.resume.projects.splice(index, 1)
+    },
+    print(){
+      window.print()
     }
     /** 声明类型
     var User = AV.Object.extend('User');
