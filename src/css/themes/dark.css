@@ -1,0 +1,65 @@
+body{
+  background: black;
+}
+ main.dark{
+  background: black;
+  color:white;
+}
+ 
+ main.dark .resume{
+   max-width:1000px;
+   margin:80px auto;
+   background: black;
+   padding:1px 30px;
+   }
+ 
+   main.dark .resume > section {text-align: center;margin:0 auto}
+   main.dark .resume > section >h1{text-align: center;margin:20px;}
+   main.dark .resume > section >h2{text-align: center;margin:20px;}
+   main.dark .resume > section input{font-size:inherit;border:none;text-align:center;}
+   main.dark .resume .skills > ul{
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+ }
+ main.dark .resume .skills > ul>li{
+   width:48%;
+   border:1px solid #ddd;
+   padding:10px;
+   margin:5px 0;
+   position:relative;
+}
+
+main.dark .resume .skills > ul>li .remove{
+  position:absolute;
+  top:0;
+  right:0;
+}
+main.dark .resume .projects > ol>li{
+  position:relative;
+}
+main.dark .resume .projects > ol>li .remove{
+  position:absolute;
+  bottom:0;
+  left:0;
+}
+main.dark .resume .projects .name{
+  margin-right:1em;
+}
+main.dark .resume .projects  li{
+  margin:30px 0;
+  border:1px solid #ddd;
+  padding:10px;
+}
+main.dark .resume .projects  header{display: flex;align-items: center;justify-content:space-between;}
+main.default .resume .projects .start{display: flex;}
+
+.exitPreview{
+  position: fixed;
+  top:20px;
+  left:20px;
+}
+
+main.dark .resume{
+  background: black;
+}

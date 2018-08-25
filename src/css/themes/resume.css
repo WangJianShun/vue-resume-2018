@@ -61,23 +61,23 @@ div[v-cloak]{display:none}
  .down button:hover{background: #66b1ff;}
  
  
- .resume{
+ main.default .resume{
    max-width:1000px;
    margin:80px auto;
    background: white;
    padding:1px 30px;
    }
  
- .resume > section {text-align: center;margin:0 auto}
- .resume > section >h1{text-align: center;margin:20px;}
- .resume > section >h2{text-align: center;margin:20px;}
- .resume > section input{font-size:inherit;border:none;text-align:center;}
- .resume .skills > ul{
+   main.default .resume > section {text-align: center;margin:0 auto}
+   main.default .resume > section >h1{text-align: center;margin:20px;}
+   main.default .resume > section >h2{text-align: center;margin:20px;}
+   main.default .resume > section input{font-size:inherit;border:none;text-align:center;}
+   main.default .resume .skills > ul{
    display: flex;
    flex-wrap: wrap;
    justify-content: space-between;
  }
-.resume .skills > ul>li{
+ main.default .resume .skills > ul>li{
    width:48%;
    border:1px solid #ddd;
    padding:10px;
@@ -85,29 +85,29 @@ div[v-cloak]{display:none}
    position:relative;
 }
 
-.resume .skills > ul>li .remove{
+main.default .resume .skills > ul>li .remove{
   position:absolute;
   top:0;
   right:0;
 }
-.resume .projects > ol>li{
+main.default .resume .projects > ol>li{
   position:relative;
 }
-.resume .projects > ol>li .remove{
+main.default .resume .projects > ol>li .remove{
   position:absolute;
   bottom:0;
   left:0;
 }
-.resume .projects .name{
+main.default .resume .projects .name{
   margin-right:1em;
 }
-.resume .projects  li{
+main.default .resume .projects  li{
   margin:30px 0;
   border:1px solid #ddd;
   padding:10px;
 }
-.resume .projects  header{display: flex;align-items: center;justify-content:space-between;}
-.resume .projects .start{display: flex;}
+main.default .resume .projects  header{display: flex;align-items: center;justify-content:space-between;}
+main.default .resume .projects .start{display: flex;}
 }
 .exitPreview{
   position: fixed;

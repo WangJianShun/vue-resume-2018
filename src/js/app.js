@@ -5,9 +5,10 @@ var app = new Vue({
     loginVisible: false,
     signUpVisible: false,
     shareVisible: false,
+    skinPickerVisible:false,
     currentUser: { objectId: '', email: '', },
     previewResume: {
-
+    
     },
     resume: {
       name: '名字',
@@ -169,7 +170,8 @@ var app = new Vue({
     },
     print(){
       window.print()
-    }
+    },
+  
     /** 声明类型
     var User = AV.Object.extend('User');
     // 新建对象
