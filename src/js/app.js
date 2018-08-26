@@ -5,10 +5,10 @@ var app = new Vue({
     loginVisible: false,
     signUpVisible: false,
     shareVisible: false,
-    skinPickerVisible:false,
+    skinPickerVisible: false,
     currentUser: { objectId: '', email: '', },
     previewResume: {
-    
+
     },
     resume: {
       name: '名字',
@@ -33,22 +33,14 @@ var app = new Vue({
       },
     },
 
-    signUp: {
-      email: '',
-      password: '',
-    },
-    login: {
-      email: '',
-      password: '',
-    },
     shareLink: '不知道',
     mode: 'edit' //'preview'
   },
   watch: {
     'currentUser.objectId': function (newValue, oldValue) {
       if (newValue) {
-        this.getResume(this.currentUser).then((resume)=>{
-          this.resume=resume
+        this.getResume(this.currentUser).then((resume) => {
+          this.resume = resume
         })
       }
     }
@@ -93,41 +85,8 @@ var app = new Vue({
     showLogin() {
       this.loginVisible = true;
     },
-    onSignUp(e) {
-      const user = new AV.User();
-      // 设置用户名
-      user.setUsername(this.signUp.email);
-      // 设置密码
-      user.setPassword(this.signUp.password);
-      // 设置邮箱
-      user.setEmail(this.signUp.email);
-      user.signUp().then((user) => {
-        alert('注册成功');
-        user = user.toJSON()
-        this.currentUser.objectId = user.objectId
-        this.currentUser.email = user.email
-        this.signUpVisible = false
 
-      }, (error) => {
-        alert('此邮箱已经被占用')
-      });
-    },
 
-    onLogin() {
-      AV.User.logIn(this.login.email, this.login.password).then((user) => {
-        user = user.toJSON()
-
-        this.currentUser.objectId = user.objectId
-        this.currentUser.email = user.email
-        this.loginVisible = false
-      }, function (error) {
-        if (error.code === 211) {
-          alert('邮箱不存在')
-        } else if (error.code === 210) {
-          alert('用户名和密码不匹配')
-        }
-      });
-    },
     hasLogin() {
       return !!this.currentUser.objectId
     },
@@ -168,24 +127,23 @@ var app = new Vue({
     removeProject(index) {
       this.resume.projects.splice(index, 1)
     },
-    print(){
+    print() {
       window.print()
     },
+    onShare() {
+      if (this.hasLogin()) {
+        this.shareVisible = true
+      } else {
+        alert('请先登录')
+      }
+    },
+    onLogin(user){
+      this.currentUser.objectId=user.objectId
+      this.currentUser.email=user.email
+      this.getResume(this.currentUser)
+      this.loginVisible=false
+    }
   
-    /** 声明类型
-    var User = AV.Object.extend('User');
-    // 新建对象
-    var user = new User();
-    // 设置名称
-    user.set('name', '工作');
-    // 设置优先级
-    user.set('priority', 1);
-    user.save().then(function (todo) {
-      console.log('objectId is ' + todo.id);
-    }, function (error) {
-      console.error(error);
-  });**/
-
   }
 })
 
