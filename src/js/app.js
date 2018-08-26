@@ -115,18 +115,12 @@ var app = new Vue({
         console.log("出现异常")
       });
     },
-    addSkills() {
-      this.resume.skills.push({ name: '请填写技能名称', description: '请填写技能描述' })
-    },
-    addProject() {
-      this.resume.projects.push({ name: '请填写项目名称', link: 'http://....', keywords: '请填写关键词', description: '请填写详细项目描述', })
-    },
+    
+    
     removeSkills(index) {
       this.resume.skills.splice(index, 1)
     },
-    removeProject(index) {
-      this.resume.projects.splice(index, 1)
-    },
+    
     print() {
       window.print()
     },
