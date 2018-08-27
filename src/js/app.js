@@ -85,7 +85,13 @@ var app = new Vue({
     showLogin() {
       this.loginVisible = true;
     },
-
+    onShare() {
+      if (this.hasLogin()) {
+        this.shareVisible = true
+      } else {
+        alert('请先登录')
+      }
+    },
 
     hasLogin() {
       return !!this.currentUser.objectId
@@ -98,12 +104,7 @@ var app = new Vue({
       // 保存到云端
       user.save();
     },
-    onLogout() {
-      AV.User.logOut();
-      alert('注销成功')
-      // 现在的 currentUser 是 null 了
-      var currentUser = AV.User.current();
-    },
+
     getResume(user) {
       var query = new AV.Query('User');
 
@@ -115,29 +116,23 @@ var app = new Vue({
         console.log("出现异常")
       });
     },
-    
-    
+
+
     removeSkills(index) {
       this.resume.skills.splice(index, 1)
     },
-    
+
     print() {
       window.print()
     },
-    onShare() {
-      if (this.hasLogin()) {
-        this.shareVisible = true
-      } else {
-        alert('请先登录')
-      }
-    },
-    onLogin(user){
-      this.currentUser.objectId=user.objectId
-      this.currentUser.email=user.email
+
+    onLogin(user) {
+      this.currentUser.objectId = user.objectId
+      this.currentUser.email = user.email
       this.getResume(this.currentUser)
-      this.loginVisible=false
+      this.loginVisible = false
     }
-  
+
   }
 })
 

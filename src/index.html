@@ -17,7 +17,7 @@
 
 <body>
   <div class="page" id="app">
-    <app-asside v-show='mode==="edit"'></app-asside>
+    <app-aside v-show='mode==="edit"' @save="onClickSave" :logout-visible="true"  @print="print" @on-share="onShare"></app-aside>
     <main class="default">
       <div class="bg-img"></div>
       <resume :mode='mode' :display-resume='displayResume'></resume>
