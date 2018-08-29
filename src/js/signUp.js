@@ -1,4 +1,4 @@
-Vue.component('signup', {
+window.SignUp = {
   data() {
     return {
       signUp: {
@@ -20,15 +20,15 @@ Vue.component('signup', {
       user.signUp().then((user) => {
         alert('注册成功');
         user = user.toJSON()
-       this.$emit('signUp')
+        this.$emit('signUp')
 
       }, (error) => {
         alert('此邮箱已经被占用')
       });
     },
-   onClickLogin(){
-     this.emit('goToLogin')
-   }
+    onClickLogin() {
+      this.emit('goToLogin')
+    }
   },
   template: `
      <div class="signUp" v-cloak>
@@ -46,9 +46,10 @@ Vue.component('signup', {
 
         <div class="row">
           <button type="submit">提交</button>
-          <a href="#" @click='onClickLogin'>登录</a>
+          <router-link to="/login">登录</router-link>
         </div>
       </form>
     </div>
   `
-})
+}
+Vue.component('signup',window.SignUp)

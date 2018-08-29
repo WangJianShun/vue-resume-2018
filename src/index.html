@@ -16,28 +16,26 @@
 </head>
 
 <body>
-  <div class="page" id="app">
-    <app-aside v-show='mode==="edit"' @save="onClickSave" :logout-visible="true"  @print="print" @on-share="onShare"></app-aside>
-    <main class="default">
-      <div class="bg-img"></div>
-      <resume :mode='mode' :display-resume='displayResume'></resume>
-
-    </main>
-    <login v-show='loginVisible' @close="loginVisible=false" @login="onLogin"></login>
+  <div class="page" id="root">
+    <!--
+  <login v-show='loginVisible' @close="loginVisible=false" @login="onLogin"></login>
     <share :share-Link="shareLink" v-show="shareVisible"></share>
     <signup v-show='signUpVisible'></signup>
+    -->
+    <router-view></router-view>
 
 
 
 
 
-    <button class="exitPreview" @click='mode="edit"' v-if="mode==='preview'">退出预览</button>
+
 
   </div>
 
   <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
   <script src='./vendors/av.js'></script>
   <script src="./vendors/vue.js"></script>
+  <script src="./vendors/vue-router.js"></script>
 
   <script src="./js/editable-span.js"></script>
   <script src='./js/login.js'></script>
@@ -45,8 +43,10 @@
   <script src='./js/signUp.js'></script>
   <script src="./js/aside.js"></script>
   <script src='./js/resume.js'></script>
-
   <script src='./js/app.js'></script>
+
+  <script src='./js/root.js'></script>
+  
 
 
   <script>
